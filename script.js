@@ -131,11 +131,10 @@ const multDivButtons = document.querySelectorAll('.multdiv');
 multDivButtons.forEach(button => button.addEventListener('click', multDivPress));
 
 window.addEventListener("keydown", function(e) {
-    // Number 13 is the "Enter" key on the keyboard
     if (e.keyCode === 13 || e.keyCode === 61) {
     
-      event.preventDefault();
-      // Trigger the button element with a click
+      e.preventDefault();
+
       document.getElementById("equals").click();
     }
   }); 
