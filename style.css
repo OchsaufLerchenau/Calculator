@@ -15,7 +15,7 @@ h1 {
 #screen {
     display: grid;
     grid-template-columns: 1fr 2fr 3fr;
-    height: 58px;
+    height: 100px;
 }
 
 #clear {
