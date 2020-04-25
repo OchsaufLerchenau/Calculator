@@ -131,10 +131,27 @@ const multDivButtons = document.querySelectorAll('.multdiv');
 multDivButtons.forEach(button => button.addEventListener('click', multDivPress));
 
 window.addEventListener("keydown", function(e) {
-    if (e.keyCode === 13 || e.keyCode === 61) {
-    
+    // Makes Enter work
+    if (e.keyCode === 13) {
       e.preventDefault();
-
       document.getElementById("equals").click();
+    // Makes shift + minus key multiply input by -1
+    } else if (e.keyCode === 173) {
+        document.getElementById('plusMinus').click();
+    // Makes backspace work
+    } else if (e.keyCode === 8) {
+        document.getElementById('backspace').click();
+    // Makes lowercase c work as clear
+    } else if (e.keyCode === 67) {
+        document.getElementById('clear').click();
+    } else {
+        document.querySelectorAll('button').forEach(button => {
+            if (e.key === button.textContent) {
+                button.click();
+            }
+        });  
     }
-  }); 
+});
+
+const buttons = document.querySelectorAll('button');
+  
