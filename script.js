@@ -5,7 +5,7 @@ var multiInputValue = 0;
 var multDivCount = 0;
 var inputValue = '';
 var operator = '';
-var ans = 0;
+var ans = '';
 var multDivOperator = '';
 
 var functions = {
@@ -15,8 +15,14 @@ var functions = {
     divide: function(a, b) {return a/b}
 }
 
+function reverse() {
+    inputValue = -1 * inputValue
+    displayValue = inputValue;
+    display.textContent = displayValue;
+}
+
 function backspace() {
-    inputValue = Array.from(inputValue).pop().toString()
+    inputValue = inputValue.slice(0,inputValue.length -1)
     displayValue = inputValue;
     display.textContent = displayValue;
 }
@@ -35,8 +41,8 @@ function numberButtonPress(e) {
 }
 
 function addSubtractPress(e) {
-    
-    if (ans !== 0) {inputValue = ans}
+    history.textContent += inputValue + ' ' + e.target.textContent + ' '
+    if (ans !== '') {inputValue = ans}
     tempValueDisp = '';
     var r = 0
     if (multDivCount === 0) {
@@ -49,9 +55,6 @@ function addSubtractPress(e) {
     if (tempValueCount !== 0) {
         tempValueCount = functions[operator](Number(tempValueCount), Number(r));
     } else if (tempValueCount === 0) {tempValueCount = r}
-    console.log(tempValueCount);
-    tempValueDisp = this.textContent;
-    value.textContent = tempValueDisp;
     inputValue = '';
     display.textContent = inputValue;
     operator = this.dataset.input.toString();
@@ -59,14 +62,12 @@ function addSubtractPress(e) {
 }
 
 function multDivPress(e) {
-    
+    history.textContent += inputValue + ' ' + e.target.textContent + ' '
     if (multDivCount !== 0) {
         multDivCount = functions[multDivOperator](Number(multDivCount), Number(inputValue));
     } else if (multDivCount === 0) {multDivCount = inputValue;}
 
     multDivOperator = this.dataset.input.toString();
-    tempValueDisp = this.textContent;
-    value.textContent = tempValueDisp;
     inputValue = '';
     display.textContent = inputValue;
     comma.addEventListener('click', commaClick);
@@ -85,7 +86,6 @@ document.getElementById('equals').addEventListener('click', () => {
     }
     
     tempValueCount = (Number(tempValueCount).toFixed(8) * 1).toString();
-    value.textContent = ''
     display.textContent = tempValueCount;
     ans = tempValueCount
     displayValue = 0;
@@ -95,10 +95,12 @@ document.getElementById('equals').addEventListener('click', () => {
     inputValue = '';
     operator = '';
     multDivOperator = '';
+    history.textContent = ''
     comma.addEventListener('click', commaClick);
 });
 
 document.getElementById('clear').addEventListener('click', () => {
+    ans = '';
     displayValue = 0;
     tempValueDisp = '';
     tempValueCount = 0;
@@ -106,15 +108,15 @@ document.getElementById('clear').addEventListener('click', () => {
     inputValue = '';
     operator = '';
     multDivOperator = '';
+    history.textContent = ''
     display.textContent = displayValue;
-    value.textContent = tempValueDisp;
     comma.addEventListener('click', commaClick);
 });
 
+const history = document.getElementById('history')
 const display = document.getElementById('display');
 const value = document.getElementById('value');
 display.textContent = displayValue;
-value.textContent = tempValueDisp;
 
 const numberButtons = document.querySelectorAll('.numbers');
 numberButtons.forEach(button => button.addEventListener('click', numberButtonPress));
@@ -122,14 +124,18 @@ numberButtons.forEach(button => button.addEventListener('click', numberButtonPre
 const comma = document.querySelector('.comma');
 comma.addEventListener('click', commaClick);
     
-
 const addSubtractButtons = document.querySelectorAll('.addsub');
 addSubtractButtons.forEach(button => button.addEventListener('click', addSubtractPress));
 
 const multDivButtons = document.querySelectorAll('.multdiv');
 multDivButtons.forEach(button => button.addEventListener('click', multDivPress));
 
-
-
-// var string = document.getElementById('add').dataset.input.toString()
-    // console.log(functions[string](5, Number(this.dataset.input)));
+window.addEventListener("keydown", function(e) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (e.keyCode === 13 || e.keyCode === 61) {
+    
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("equals").click();
+    }
+  }); 

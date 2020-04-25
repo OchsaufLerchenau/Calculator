@@ -1,87 +1,86 @@
-#whole {
-    width: 270px;
+#calculator {
+    width: 280px;
+    margin: auto;
+    margin-top: 100px;
     border: solid black;
     border-radius: 15px;
-}
-
-h1 {
-    text-align: center;
-    font-family: Pacifico, cursive;
-    font-size: 50px;
-    margin: 0px;
-    color: rgb(80, 0, 0);
+    background-color: rgba(212, 212, 212);
 }
 
 #screen {
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 5fr;
     height: 100px;
+    color: rgb(255, 246, 195);
+    background-color: rgb(46, 46, 46);
+    border-radius: 11px 11px 0px 0px;
+    margin-bottom: 10px;
 }
 
 #clear {
     grid-column: 1/2;
     align-self: center;
+    height: 60px;
+}
+
+#history {
+    text-align: right;
+    align-self: center;
     margin: 10px;
-    height: 40px;
-    width: 36.2833px;
+    grid-column: 1/7;
 }
 
 #value {
+    grid-row: 2/3;
     text-align: center;
     align-self: center;
     margin: 10px;
 }
 
 #display {
+    grid-row: 2/3;
+    grid-column: 2/7;
     text-align: right;
     align-self: center;
     margin: 10px;
 }
 
 #buttons {
-    margin: 3px;
     display: grid;
+    grid-gap: 5px;
     grid-area: buttons;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 p {font-size: x-large}
 
 button {
-    margin: 3px;
     font-size: x-large;
     font-weight: bold;
-    border-radius: 10px;
-    background-color: rgb(198, 196, 221);
+    box-shadow: none;
+    border: 0;
+    background-color: rgb(212, 212, 212);
+    /* border: 1px solid black */
 }
 
 button:hover {
     transition: all 400;
-    scale: 1.09;
-    background-color: rgb(204, 162, 162);
+    scale: 1.03;
+    background-color: rgba(255, 171, 103, 0.541);
     box-shadow: rgb(206, 206, 206) 3px 2px;
     border: thin solid rgba(122, 122, 122, 0.493);
 }
 
-.operators {
-    margin: 4px;
-    grid-column: 4/5;
+.addsub, .multdiv, .equals{
+    background-color: rgb(198, 196, 221);
 }
 
 #equals {
-    grid-row: 4/5;
-    grid-column: 3/4;
-    margin: 4px;
-}
-
-#comma {
-    grid-row: 4/5;
-    grid-column: 2/3;
-    margin: 4px;
-}
-
-.numbers {
-    margin: 4px;
-    height: 55px;
+    grid-column: 3/5;
+    background-color: rgb(255, 103, 103);
 }
