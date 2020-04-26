@@ -16,18 +16,21 @@ var functions = {
 }
 
 function reverse() {
+    e.target.className += ' active';
     inputValue = -1 * inputValue
     displayValue = inputValue;
     display.textContent = displayValue;
 }
 
 function backspace() {
+    e.target.className += ' active';
     inputValue = inputValue.slice(0,inputValue.length -1)
     displayValue = inputValue;
     display.textContent = displayValue;
 }
 
 var commaClick = function () {
+    e.target.className += ' active';
     inputValue += '.'
     displayValue = inputValue;
     display.textContent = displayValue;
@@ -35,14 +38,21 @@ var commaClick = function () {
 }
 
 function numberButtonPress(e) {
+    e.target.className += ' active';
     inputValue += this.dataset.input.toString();
     displayValue = inputValue;
     display.textContent = displayValue;
 }
 
+//Add, subtract are separated from mult/div
+//in order to facilitate correct order of operations with multiple inputs.
 function addSubtractPress(e) {
+    e.target.className += ' active';
     history.textContent += inputValue + ' ' + e.target.textContent + ' '
-    if (ans !== '') {inputValue = ans}
+    if (ans !== '') {
+        inputValue = ans;
+        history.textContent = inputValue + ' ' + e.target.textContent + ' ';
+    };
     tempValueDisp = '';
     var r = 0
     if (multDivCount === 0) {
@@ -61,8 +71,14 @@ function addSubtractPress(e) {
     comma.addEventListener('click', commaClick);
 }
 
+//Function for multiply divide operations after button press
 function multDivPress(e) {
+    e.target.className += ' active';
     history.textContent += inputValue + ' ' + e.target.textContent + ' '
+    if (ans !== '') {
+        inputValue = ans
+        history.textContent = inputValue + ' ' + e.target.textContent + ' ';
+    };
     if (multDivCount !== 0) {
         multDivCount = functions[multDivOperator](Number(multDivCount), Number(inputValue));
     } else if (multDivCount === 0) {multDivCount = inputValue;}
@@ -73,7 +89,10 @@ function multDivPress(e) {
     comma.addEventListener('click', commaClick);
 }
 
-document.getElementById('equals').addEventListener('click', () => {
+//Displays result, resets most of variables except ans,
+//which will be used as input if next press is an operator.
+document.getElementById('equals').addEventListener('click', (e) => {
+    e.target.className += ' active';
     if (multDivCount === 0 && tempValueCount !== 0) {
         tempValueCount = functions[operator](Number(tempValueCount), Number(inputValue));
     } else if (multDivCount !== 0 && tempValueCount === 0) {
@@ -99,7 +118,9 @@ document.getElementById('equals').addEventListener('click', () => {
     comma.addEventListener('click', commaClick);
 });
 
+//Resets all the variables to the start condition, effectively same as reload.
 document.getElementById('clear').addEventListener('click', () => {
+    e.target.className += ' active';
     ans = '';
     displayValue = 0;
     tempValueDisp = '';
@@ -130,6 +151,7 @@ addSubtractButtons.forEach(button => button.addEventListener('click', addSubtrac
 const multDivButtons = document.querySelectorAll('.multdiv');
 multDivButtons.forEach(button => button.addEventListener('click', multDivPress));
 
+//Adding keyboard support
 window.addEventListener("keydown", function(e) {
     // Makes Enter work
     if (e.keyCode === 13) {
@@ -153,5 +175,16 @@ window.addEventListener("keydown", function(e) {
     }
 });
 
+//Adding and creating time limits for animations with keypresses.
+function removeTransition(e) {
+    if (e.propertyName !== 'scale') return;
+    for (i = 0; i < 7; i++) {
+        var className = Array.from(this.className);
+        className.pop();
+        e.target.className = className.join('');
+    }
+}
+
 const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
   

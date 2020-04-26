@@ -11,7 +11,7 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 5fr;
-    height: 100px;
+    min-height: 100px;
     color: rgb(255, 246, 195);
     background-color: rgb(46, 46, 46);
     border-radius: 11px 11px 0px 0px;
@@ -67,10 +67,17 @@ button {
     background-color: rgb(212, 212, 212);
 }
 
-button:hover, .active {
-    transition: all 400;
+button.active {
+    transition: all 0.2s;
     scale: 1.03;
-    background-color: rgba(255, 171, 103, 0.541);
+    background-color: rgba(140, 83, 231, 0.541);
+    box-shadow: rgb(206, 206, 206) 3px 2px;
+    border: thin solid rgba(122, 122, 122, 0.493);
+}
+
+button:hover {
+    scale: 1.03;
+    background-color: rgba(140, 83, 231, 0.541);
     box-shadow: rgb(206, 206, 206) 3px 2px;
     border: thin solid rgba(122, 122, 122, 0.493);
 }
@@ -84,6 +91,6 @@ button:hover, .active {
     background-color: rgb(255, 103, 103);
 }
 
-#equals:hover {
+#equals:hover, #equals.active {
     background-color: rgb(255, 70, 70);
 }
