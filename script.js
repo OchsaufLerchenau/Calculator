@@ -16,38 +16,42 @@ var functions = {
 }
 
 function reverse() {
-    e.target.className += ' active';
+    this.className += ' active';
     inputValue = -1 * inputValue
     displayValue = inputValue;
     display.textContent = displayValue;
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
-function backspace() {
-    e.target.className += ' active';
+function backspace(e) {
+    this.className += ' active';
     inputValue = inputValue.slice(0,inputValue.length -1)
     displayValue = inputValue;
     display.textContent = displayValue;
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
-var commaClick = function () {
-    e.target.className += ' active';
+var commaClick = function (e) {
+    this.className += ' active';
     inputValue += '.'
     displayValue = inputValue;
     display.textContent = displayValue;
     comma.removeEventListener('click', commaClick);
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
 function numberButtonPress(e) {
-    e.target.className += ' active';
+    this.className += ' active';
     inputValue += this.dataset.input.toString();
     displayValue = inputValue;
     display.textContent = displayValue;
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
 //Add, subtract are separated from mult/div
 //in order to facilitate correct order of operations with multiple inputs.
 function addSubtractPress(e) {
-    e.target.className += ' active';
+    this.className += ' active';
     history.textContent += inputValue + ' ' + e.target.textContent + ' '
     if (ans !== '') {
         inputValue = ans;
@@ -69,14 +73,15 @@ function addSubtractPress(e) {
     display.textContent = inputValue;
     operator = this.dataset.input.toString();
     comma.addEventListener('click', commaClick);
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
 //Function for multiply divide operations after button press
 function multDivPress(e) {
-    e.target.className += ' active';
+    this.className += ' active';
     history.textContent += inputValue + ' ' + e.target.textContent + ' '
     if (ans !== '') {
-        inputValue = ans
+        inputValue = ans;
         history.textContent = inputValue + ' ' + e.target.textContent + ' ';
     };
     if (multDivCount !== 0) {
@@ -87,12 +92,13 @@ function multDivPress(e) {
     inputValue = '';
     display.textContent = inputValue;
     comma.addEventListener('click', commaClick);
+    this.addEventListener('mouseleave', mouseLeave);
 }
 
 //Displays result, resets most of variables except ans,
 //which will be used as input if next press is an operator.
 document.getElementById('equals').addEventListener('click', (e) => {
-    e.target.className += ' active';
+    this.className += ' active';
     if (multDivCount === 0 && tempValueCount !== 0) {
         tempValueCount = functions[operator](Number(tempValueCount), Number(inputValue));
     } else if (multDivCount !== 0 && tempValueCount === 0) {
@@ -119,8 +125,8 @@ document.getElementById('equals').addEventListener('click', (e) => {
 });
 
 //Resets all the variables to the start condition, effectively same as reload.
-document.getElementById('clear').addEventListener('click', () => {
-    e.target.className += ' active';
+document.getElementById('clear').addEventListener('click', (e) => {
+    this.className += ' active';
     ans = '';
     displayValue = 0;
     tempValueDisp = '';
@@ -178,13 +184,20 @@ window.addEventListener("keydown", function(e) {
 //Adding and creating time limits for animations with keypresses.
 function removeTransition(e) {
     if (e.propertyName !== 'scale') return;
-    for (i = 0; i < 7; i++) {
-        var className = Array.from(this.className);
-        className.pop();
-        e.target.className = className.join('');
-    }
+    if (this.className === 'numbers active') {this.className = 'numbers'; return;}
+    if (this.className === 'multdiv active') {this.className = 'multdiv'; return;}
+    if (this.className === 'comma active') {this.className = 'comma'; return;}
+    if (this.className === ' active') {this.className = ''; return;}
+}
+
+function mouseLeave(e) {
+    if (this.className === 'numbers active') {this.className = 'numbers'; return;}
+    if (this.className === 'multdiv active') {this.className = 'multdiv'; return;}
+    if (this.className === 'comma active') {this.className = 'comma'; return;}
+    if (this.className === 'addsub active') {this.className = 'addsub'; return;}
+    if (this.className === ' active') {this.className = ''; return;}
 }
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
-  
+buttons.forEach(button => addEventListener('mouseleave', mouseLeave));
