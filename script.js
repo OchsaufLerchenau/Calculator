@@ -190,6 +190,7 @@ function removeTransition(e) {
     if (this.className === 'numbers active') {this.className = 'numbers'; return;}
     if (this.className === 'multdiv active') {this.className = 'multdiv'; return;}
     if (this.className === 'comma active') {this.className = 'comma'; return;}
+    if (this.className === 'addsub active') {this.className = 'addsub'; return;}
     if (this.className === 'material-icons md-18 backspace active') {
         this.className = 'material-icons md-18 backspace'; return;}
     if (this.className === ' active') {this.className = ''; return;}
