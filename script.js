@@ -16,19 +16,20 @@ var functions = {
 }
 
 function reverse() {
-    this.className += ' active';
+    document.getElementById('plusMinus').className += ' active';
     inputValue = -1 * inputValue
     displayValue = inputValue;
     display.textContent = displayValue;
-    this.addEventListener('mouseleave', mouseLeave);
+    document.getElementById('plusMinus').addEventListener('mouseleave', mouseLeave);
 }
 
-function backspace(e) {
-    this.className += ' active';
-    inputValue = inputValue.slice(0,inputValue.length -1)
+function backspace() {
+    document.getElementById('backspace').className += ' active';
+    inputValue = inputValue.toString().slice(0, inputValue.length-1);
+    if (inputValue === '') inputValue = '0';
     displayValue = inputValue;
     display.textContent = displayValue;
-    this.addEventListener('mouseleave', mouseLeave);
+    document.getElementById('backspace').addEventListener('mouseleave', mouseLeave);
 }
 
 var commaClick = function (e) {
@@ -98,7 +99,7 @@ function multDivPress(e) {
 //Displays result, resets most of variables except ans,
 //which will be used as input if next press is an operator.
 document.getElementById('equals').addEventListener('click', (e) => {
-    this.className += ' active';
+    e.target.className += ' active';
     if (multDivCount === 0 && tempValueCount !== 0) {
         tempValueCount = functions[operator](Number(tempValueCount), Number(inputValue));
     } else if (multDivCount !== 0 && tempValueCount === 0) {
@@ -122,11 +123,12 @@ document.getElementById('equals').addEventListener('click', (e) => {
     multDivOperator = '';
     history.textContent = ''
     comma.addEventListener('click', commaClick);
+    e.target.addEventListener('mouseleave', mouseLeave)
 });
 
 //Resets all the variables to the start condition, effectively same as reload.
 document.getElementById('clear').addEventListener('click', (e) => {
-    this.className += ' active';
+    e.target.className += ' active';
     ans = '';
     displayValue = 0;
     tempValueDisp = '';
@@ -138,6 +140,7 @@ document.getElementById('clear').addEventListener('click', (e) => {
     history.textContent = ''
     display.textContent = displayValue;
     comma.addEventListener('click', commaClick);
+    e.target.addEventListener('mouseleave', mouseLeave);
 });
 
 const history = document.getElementById('history')
@@ -187,6 +190,8 @@ function removeTransition(e) {
     if (this.className === 'numbers active') {this.className = 'numbers'; return;}
     if (this.className === 'multdiv active') {this.className = 'multdiv'; return;}
     if (this.className === 'comma active') {this.className = 'comma'; return;}
+    if (this.className === 'material-icons md-18 backspace active') {
+        this.className = 'material-icons md-18 backspace'; return;}
     if (this.className === ' active') {this.className = ''; return;}
 }
 
@@ -195,6 +200,8 @@ function mouseLeave(e) {
     if (this.className === 'multdiv active') {this.className = 'multdiv'; return;}
     if (this.className === 'comma active') {this.className = 'comma'; return;}
     if (this.className === 'addsub active') {this.className = 'addsub'; return;}
+    if (this.className === 'material-icons md-18 backspace active') {
+        this.className = 'material-icons md-18 backspace'; return;}
     if (this.className === ' active') {this.className = ''; return;}
 }
 

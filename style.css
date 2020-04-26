@@ -4,7 +4,7 @@
     margin-top: 100px;
     border: solid black;
     border-radius: 15px;
-    background-color: rgba(212, 212, 212);
+    background-color: rgb(215, 215, 215);
 }
 
 #screen {
@@ -12,7 +12,7 @@
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 5fr;
     min-height: 100px;
-    color: rgb(255, 246, 195);
+    color: rgb(253, 239, 185);
     background-color: rgb(46, 46, 46);
     border-radius: 11px 11px 0px 0px;
     margin-bottom: 10px;
@@ -64,26 +64,45 @@ button {
     font-weight: bold;
     box-shadow: none;
     border: 0;
-    background-color: rgb(212, 212, 212);
-}
-
-button.active {
-    transition: all 0.2s;
-    scale: 1.03;
-    background-color: rgba(140, 83, 231, 0.541);
-    box-shadow: rgb(206, 206, 206) 3px 2px;
-    border: thin solid rgba(122, 122, 122, 0.493);
+    background-color: rgb(215, 215, 215);
 }
 
 button:hover {
-    scale: 1.03;
-    background-color: rgba(140, 83, 231, 0.541);
-    box-shadow: rgb(206, 206, 206) 3px 2px;
+    scale: 1.04;
     border: thin solid rgba(122, 122, 122, 0.493);
+    box-shadow: rgb(190, 190, 190) 3px 2px;
+}
+
+button.active {
+    transition: all 0.15s;
+    scale: 1.04;
+    border: thin solid rgba(122, 122, 122, 0.493);
+    box-shadow: rgb(190, 190, 190) 3px 2px;
+}
+
+.numbers.active, .comma.active, .numbers:hover, .comma:hover  {
+    background-color: rgb(207, 207, 253);
+    color: white;
 }
 
 .addsub, .multdiv, .equals{
-    background-color: rgb(198, 196, 221);
+    background-color: rgb(190, 185, 240);
+}
+
+.addsub.active, .multdiv.active, .equals.active,
+.addsub:hover, .multdiv:hover, .equals:hover{
+    background-color: rgb(84, 94, 240);
+    color: white;
+}
+
+#clear, #plusMinus, #backspace {
+    background-color: rgb(172, 172, 172);
+}
+
+#clear.active, #plusMinus.active, #backspace.active,
+#clear:hover, #plusMinus:hover, #backspace:hover {
+    background-color: rgb(94, 94, 94);
+    color: white;
 }
 
 #equals {
@@ -93,4 +112,5 @@ button:hover {
 
 #equals:hover, #equals.active {
     background-color: rgb(255, 70, 70);
+    font-size: 35px;
 }
