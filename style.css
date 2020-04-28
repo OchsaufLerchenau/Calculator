@@ -29,6 +29,8 @@
     align-self: center;
     margin: 10px;
     grid-column: 1/7;
+    color: lightgray;
+    font-size: large;
 }
 
 #value {
